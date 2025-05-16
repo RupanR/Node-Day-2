@@ -81,3 +81,21 @@ export const updateProduct = (req, res) => {
       .json({ message: "Cannot Update product Error in Update product" });
   }
 };
+
+// delete method
+
+export const deleteProduct = (req, res) => {
+  const productId = req.params.id;
+  try {
+    const index = products.findIndex((ele) => ele.id == productId);
+    if (index === -1) {
+      return res.status(404).json({ message: "Product Not Found" });
+    }
+    products.splice(index, 1);
+    res.status(200).json({ message: "Product deleted successfully" });
+  } catch (error) {
+    res
+      .status(503)
+      .json({ message: "Cannot Delete product Error in Delete product" });
+  }
+};

@@ -59,3 +59,25 @@ export const createProduct = (req, res) => {
       .json({ message: "Cannot create product Error in create product" });
   }
 };
+
+//put method or update product
+
+export const updateProduct = (req, res) => {
+  const productId = req.params.id;
+  const { name, price } = req.body;
+  try {
+    const index = products.findIndex((ele) => ele.id == productId);
+    if (index === -1) {
+      return res.status(404).json({ message: "Product Not Found" });
+    }
+    products[index].name = name;
+    products[index].price = price;
+    res
+      .status(200)
+      .json({ message: "Product Updated Successfully", data: products[index] });
+  } catch (error) {
+    res
+      .status(503)
+      .json({ message: "Cannot Update product Error in Update product" });
+  }
+};

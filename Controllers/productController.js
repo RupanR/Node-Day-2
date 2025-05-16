@@ -38,3 +38,24 @@ export const getProductById = (req, res) => {
       .json({ message: "Cannot retrieve product Error in get product by ID" });
   }
 };
+
+// post method creating a product
+
+export const createProduct = (req, res) => {
+  const { name, price } = req.body;
+  try {
+    const newProduct = {
+      id: products.length + 1,
+      name: name,
+      price: price,
+    };
+    products.push(newProduct);
+    res
+      .status(200)
+      .json({ message: "Product created successfully", data: newProduct });
+  } catch (error) {
+    res
+      .status(503)
+      .json({ message: "Cannot create product Error in create product" });
+  }
+};
